@@ -3,31 +3,36 @@ using UnityEngine.InputSystem;
 
 public class Ulti : MonoBehaviour
 {
-    [Header("Clon")]
-    public GameObject prefabClon;
-    public float duracionClon = 10f;
-    public Vector3 offsetClon = new Vector3(1.2f, 0f, 0f);
+    [Header("Prefab de Roni")]
+    public GameObject roniPrefab;        // Prefab de Roni con RoniAI
+    public Vector3 offsetRoni = new Vector3(1.2f, 0f, 0f);
 
-    private GameObject clonActual;
+    private GameObject clonRoni;
 
     void Update()
     {
+        if (roniPrefab == null) return;
+
+        // Pulsar Q para invocar Roni
         if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
             ActivarUlti();
+        }
     }
 
     void ActivarUlti()
     {
-        if (prefabClon == null) return;
-        if (clonActual != null) return;
+        // Evita duplicados
+        if (clonRoni != null) return;
 
-        clonActual = Instantiate(prefabClon, transform.position + offsetClon, transform.rotation);
-        Destroy(clonActual, duracionClon);
+        // Instanciar Roni
+        clonRoni = Instantiate(roniPrefab, transform.position + offsetRoni, transform.rotation);
+
+        // Destruir automáticamente tras duracionRoni
+        RoniAI roniAI = clonRoni.GetComponent<RoniAI>();
+        if (roniAI != null)
+        {
+            Destroy(clonRoni, roniAI.duracionRoni);
+        }
     }
 }
-
-
-
-
-
-
