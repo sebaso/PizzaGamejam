@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 6890213053115132662}
   - component: {fileID: 1182232189705164016}
   m_Layer: 0
-  m_Name: NPC
+  m_Name: NPC Maiz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

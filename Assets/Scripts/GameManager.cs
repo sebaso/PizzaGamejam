@@ -32,10 +32,7 @@ public class GameManager : MonoBehaviour
     private int enemiesSpawnedThisDay;
     private int enemiesDefeatedThisDay;
 
-    public GameObject enemyPrefab;
-    public GameObject enemyHam;
-    public GameObject enemyPineapple;
-    public GameObject enemyTomato;
+    public GameObject[] enemyPrefabsPerDay;
     public GameObject bossPrefab;
     public GameObject player;
 
@@ -298,23 +295,26 @@ public class GameManager : MonoBehaviour
 
     GameObject GetRandomEnemyPrefab()
     {
+
+        if (currentDay == 3 && enemyPrefabsPerDay != null && enemyPrefabsPerDay.Length >= 2)
+        {
+            int randomIndex = Random.Range(0, 2);
+            return enemyPrefabsPerDay[randomIndex];
+        }
+
+        int dayIndex = currentDay - 1;
+        if (enemyPrefabsPerDay != null && dayIndex < enemyPrefabsPerDay.Length && enemyPrefabsPerDay[dayIndex] != null)
+        {
+            return enemyPrefabsPerDay[dayIndex];
+        }
+
         if (currentDay == maxDays && bossPrefab != null)
         {
             return bossPrefab;
         }
 
-        List<GameObject> availablePrefabs = new List<GameObject>();
-        
-        if (enemyPrefab != null) availablePrefabs.Add(enemyPrefab);
-        if (enemyHam != null) availablePrefabs.Add(enemyHam);
-        if (enemyPineapple != null) availablePrefabs.Add(enemyPineapple);
-        if (enemyTomato != null) availablePrefabs.Add(enemyTomato);
-
-        if (availablePrefabs.Count == 0) return null;
-
-        return availablePrefabs[Random.Range(0, availablePrefabs.Count)];
+        return null;
     }
-
     public void RegisterEnemy(GameObject enemy)
     {
         if (!activeEnemies.Contains(enemy))
