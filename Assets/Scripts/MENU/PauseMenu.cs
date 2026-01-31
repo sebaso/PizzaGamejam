@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,9 +9,15 @@ public class PauseMenu : MonoBehaviour
     
     private bool estaPausado = false;
 
+
+    [Header("Game Over UI")]
+    public GameObject panelGameOver;
+
+    [Header("Victoria Menu UI")]
+    public GameObject panelVictoria;
+
     void Start()
     {
-        // Asegurar que el menú está oculto al inicio
         if (panelPausa != null)
         {
             panelPausa.SetActive(false);
@@ -19,7 +26,6 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        // Detectar tecla ESC para pausar/despausar
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (estaPausado)
@@ -61,4 +67,28 @@ public class PauseMenu : MonoBehaviour
             Application.Quit();
         #endif
     }
+
+    public void MostrarVictoria()
+    {
+        if (panelVictoria != null)
+        {
+            panelVictoria.SetActive(true);
+            Time.timeScale = 0f; 
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        
+    }
+    public void MostrarGameOver()
+{
+    // Activamos el panel y congelamos el juego
+    if (panelGameOver != null)
+    {
+        panelGameOver.SetActive(true);
+        Time.timeScale = 0f; 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    
+}
 }
