@@ -393,7 +393,7 @@ MonoBehaviour:
     m_Bits: 64
   "porcentajeDa\xF1o": 0
   multiplicadorVuelo: 3
-  vidas: 3
+  vidas: 1
   indicadorCarga: {fileID: 1710471623859870373}
   "textoDa\xF1o": {fileID: 2459858160175048348}
   rend: {fileID: 7550463227955393067}

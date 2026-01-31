@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,9 +43,12 @@ public class GameManager : MonoBehaviour
     private Coroutine spawnCoroutine;
 
     public CountdownUI countdownUI;
+    public GameObject arena;
 
     public int totalEnemiesKilled = 0;
     public int score = 0;
+    public GameObject gameOverUI;
+    public GameObject victoryUI;
 
     public System.Action OnDayStart;
     public System.Action<int> OnDayComplete;
@@ -85,6 +89,24 @@ public class GameManager : MonoBehaviour
 
         if (currentState == GameState.DayComplete)
         {
+        }
+
+        if (currentState == GameState.GameOver)
+        {
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            {
+                RestartGame();
+            }
+            gameOverUI.SetActive(true);
+        }
+
+        if (currentState == GameState.Victory)
+        {
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            {
+                RestartGame();
+            }
+            victoryUI.SetActive(true);
         }
     }
     
@@ -138,6 +160,9 @@ public class GameManager : MonoBehaviour
     {
         if (countdownUI != null)
         {
+            countdownUI.gameObject.SetActive(true);
+            if (arena != null) arena.SetActive(true);
+
             bool countdownComplete = false;
             countdownUI.OnCountdownComplete = () => countdownComplete = true;
             countdownUI.StartCountdown();
@@ -206,6 +231,9 @@ public class GameManager : MonoBehaviour
         ClearAllEnemies();
         
         SetState(GameState.GameOver);
+    }
+    public void ToMenu(){
+        SceneManager.LoadScene("Menu");
     }
 
     public void RestartGame()

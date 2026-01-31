@@ -173,7 +173,7 @@ public class RoniAI : PepperoniBase
         }
     }
 
-    protected override void Morir()
+    public override void Morir()
     {
         base.Morir();
         Destroy(gameObject);
