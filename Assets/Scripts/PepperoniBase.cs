@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PepperoniBase : MonoBehaviour
@@ -32,6 +33,7 @@ public class PepperoniBase : MonoBehaviour
     [Header("Referencias Visuales")]
     public GameObject indicadorCarga;
     public TMP_Text textoDaño;
+    public Image imageDaño;
     public Renderer rend;
 
     protected Rigidbody rb;
@@ -288,6 +290,8 @@ public class PepperoniBase : MonoBehaviour
         {
             textoDaño.text = Mathf.RoundToInt(porcentajeDaño) + "%";
             textoDaño.color = Color.Lerp(Color.white, Color.red, porcentajeDaño / 100f);
+            if(imageDaño != null)
+                imageDaño.fillAmount = porcentajeDaño/100f;
         }
     }
 

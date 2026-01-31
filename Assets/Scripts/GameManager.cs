@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -55,6 +56,8 @@ public class GameManager : MonoBehaviour
     public System.Action<int> OnDayComplete;
     public System.Action OnGameOver;
     public System.Action OnVictory;
+
+    public TextMeshProUGUI enemyCounterText;
 
 
     
@@ -148,6 +151,7 @@ public class GameManager : MonoBehaviour
                 OnVictory?.Invoke();
                 break;
         }
+        UpdateEnemyCounterUI();
     }
     
     public void StartGame()
@@ -192,6 +196,7 @@ public class GameManager : MonoBehaviour
         OnDayStart?.Invoke();
         if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
         spawnCoroutine = StartCoroutine(SpawnEnemiesRoutine());
+        UpdateEnemyCounterUI();
     }
 
     void CheckDayCompletion()
@@ -314,6 +319,7 @@ public class GameManager : MonoBehaviour
             enemiesDefeatedThisDay++;
             totalEnemiesKilled++;
             score += 100;
+            UpdateEnemyCounterUI();
         }
     }
 
@@ -344,5 +350,21 @@ public class GameManager : MonoBehaviour
     public bool IsPlaying()
     {
         return currentState == GameState.Playing;
+    }
+
+    private void UpdateEnemyCounterUI()
+    {
+        if (enemyCounterText != null)
+        {
+            if (currentState == GameState.Playing || currentState == GameState.Countdown || currentState == GameState.DayComplete)
+            {
+                enemyCounterText.gameObject.SetActive(true);
+                enemyCounterText.text = $"Ingredientes que quedan por condenar: {GetEnemiesRemaining()}";
+            }
+            else
+            {
+                enemyCounterText.gameObject.SetActive(false);
+            }
+        }
     }
 }
