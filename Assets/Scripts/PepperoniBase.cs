@@ -17,16 +17,13 @@ public class PepperoniBase : MonoBehaviour
     public float velocidadGiro = 30f; 
     public float fuerzaMinima = 10f;  
     public float fuerzaMaxima = 50f; 
+    [Tooltip("Cuanto tarda en cargar la fuerza maxima (segundos)")]
     public float tiempoCargaMax = 0.8f; 
-    [Header("Detección de Suelo")]
-    public bool estaEnEscenario;
-    public float distanciaDeteccionSuelo = 1.5f;
-    public LayerMask capaSuelo; //pizzasuelo
 
     [Header("Sistema de Daño")]
     public float porcentajeDaño = 0f;
     public float multiplicadorVuelo = 3.0f;
-    public int vidas = 1; 
+    public int vidas = 1; // Por defecto 1 (Enemigos)
 
     [Header("Referencias Visuales")]
     public GameObject indicadorCarga;
@@ -44,7 +41,7 @@ public class PepperoniBase : MonoBehaviour
     protected float tiempoCargaActual;
 
     [Header("Ajustes de Gameplay")]
-    public float cooldownAtaque = 0.8f; 
+    public float cooldownAtaque = 0.8f; // Tiempo de espera tras parar de deslizar
     protected float tiempoUltimoFinalizacionAtaque = 0f;
 
     protected virtual void Start()
@@ -66,8 +63,6 @@ public class PepperoniBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        ComprobarSuelo();
-
         if (transform.position.y < -5 && currentState != State.Respawning) 
         {
             Morir();
@@ -98,16 +93,6 @@ public class PepperoniBase : MonoBehaviour
         }
     }
 
-    void ComprobarSuelo()
-{
-    estaEnEscenario = Physics.Raycast(transform.position, Vector3.down, distanciaDeteccionSuelo, capaSuelo);
-
-    if (!estaEnEscenario && currentState != State.Respawning)
-    {
-        rb.AddForce(Vector3.down * 10f, ForceMode.Acceleration);
-    }
-}
-
     // --- MAQUINA DE ESTADOS ---
 
     public void SetState(State newState)
@@ -133,14 +118,14 @@ public class PepperoniBase : MonoBehaviour
             case State.Charging:
                 rb.linearDamping = 10f; 
                 rb.angularDamping = 10f; 
-                rb.linearVelocity = Vector3.zero; 
-                rb.angularVelocity = Vector3.zero; 
+                rb.linearVelocity = Vector3.zero; // STOP TOTAL al cargar
+                rb.angularVelocity = Vector3.zero; // NO MAS GIROS
                 tiempoCargaActual = 0f;
                 if (indicadorCarga) indicadorCarga.SetActive(true);
                 break;
 
             case State.Attacking:
-                rb.linearDamping = 1.2f; 
+                rb.linearDamping = 1.2f; // Mas rozamiento para que no sea infinito (Antes 0.6)
                 rb.angularDamping = 0f; 
                 if (rend) rend.material.color = Color.Lerp(colorOriginal, Color.black, 0.2f); 
                 if (indicadorCarga) indicadorCarga.SetActive(false);
@@ -153,13 +138,10 @@ public class PepperoniBase : MonoBehaviour
                 break;
 
             case State.Respawning:
-            rb.isKinematic = false; 
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-    
-            rb.isKinematic = true;
-            if (rend) rend.enabled = false;
-            break;
+                rb.linearVelocity = Vector3.zero;
+                rb.isKinematic = true;
+                if (rend) rend.enabled = false;
+                break;
         }
     }
 
@@ -167,10 +149,11 @@ public class PepperoniBase : MonoBehaviour
 
     public virtual void EmpezarCarga()
     {
-        if (!estaEnEscenario) return;
-
+        // CHEQUEOS:
+        // 1. Solo si estoy quieto (Idle) o ya cargando
         if (currentState != State.Idle && currentState != State.Charging) return;
-
+        
+        // 2. Respetar Cooldown
         if (Time.time < tiempoUltimoFinalizacionAtaque + cooldownAtaque) return;
 
         SetState(State.Charging);
@@ -198,30 +181,30 @@ public class PepperoniBase : MonoBehaviour
     }
 
     public void RecibirGolpe(Vector3 posicionAgresor, float fuerzaBase)
-            {
-    if (currentState == State.Attacking || 
-    currentState == State.Respawning || 
-    currentState == State.Hit) 
-    return;
+    {
+        // INMUNIDAD: Si ataco, NO recibo daño.
+        if (currentState == State.Attacking || currentState == State.Respawning || currentState == State.Hit) return;
 
-    porcentajeDaño += fuerzaBase; 
-    ActualizarInterfaz();
+        // Calcular daño
+        porcentajeDaño += fuerzaBase; 
+        ActualizarInterfaz();
+        
 
-    Vector3 direccion = (transform.position - posicionAgresor);
-    direccion.y = 0; 
-    direccion.Normalize();
-    
-    direccion.y = 0.15f; 
+        // Calcular direccion
+        Vector3 direccion = (transform.position - posicionAgresor).normalized;
+        direccion.y = 0.4f; // Mas arco hacia arriba
 
-    float factorVuelo = (porcentajeDaño / 10f) * multiplicadorVuelo;
-    float fuerzaTotal = fuerzaBase + factorVuelo;
+        // Formula: Cuanto mas daño, mas vuelas
+        float factorVuelo = (porcentajeDaño / 10f) * multiplicadorVuelo;
+        float fuerzaTotal = fuerzaBase + factorVuelo;
 
-    SetState(State.Hit);
-    stateTimer = 0.5f;
+        SetState(State.Hit);
+        stateTimer = 0.5f; // Tiempo aturdido
 
-    rb.linearVelocity = Vector3.zero;
-    rb.AddForce(direccion * fuerzaTotal, ForceMode.Impulse);
-}
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero; // STOP SPINNING
+        rb.AddForce(direccion * fuerzaTotal, ForceMode.Impulse);
+    }
 
     protected void RotarHacia(Vector3 destino)
     {
@@ -260,7 +243,8 @@ public class PepperoniBase : MonoBehaviour
 
         if (yoAtaco && !elAtaca)
         {
-            // LE PEGO PUM PIUM PAPAPAPAPUM
+            // LE PEGO
+            // CLAMP DE DAÑO REDUCIDO: Entre 10 y 20. 
             float velocidad = collision.relativeVelocity.magnitude;
             float fuerza = Mathf.Clamp(velocidad, 10f, 20f);
 
@@ -273,9 +257,11 @@ public class PepperoniBase : MonoBehaviour
         }
         else if (yoAtaco && elAtaca)
         {
-            // CHOQUE 
+            // CHOQUE (Clash)
+            // Reboto hacia atras
             rb.linearVelocity = -transform.forward * 10f;
             SetState(State.Idle);
+            // No hacemos daño, solo rebote mutuo
         }
     }
 
@@ -306,10 +292,10 @@ public class PepperoniBase : MonoBehaviour
             rend.material.color = colorOriginal;
     }
 
-    public virtual void Morir()
+    protected virtual void Morir()
     {
         vidas--;
-        Debug.Log($"PLUH... {name} MURIÓ. Vidas: {vidas}");
+        Debug.Log($"💀 {name} MURIÓ. Vidas: {vidas}");
         SetState(State.Respawning);
         
         if (vidas > 0) StartCoroutine(RespawnRoutine());
