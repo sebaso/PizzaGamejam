@@ -113,6 +113,7 @@ public class PepperoniAI : PepperoniBase
 
     public override void Morir()
     {
+        GameManager.Instance.EnemyDefeated(gameObject);
         base.Morir();
         if (vidas < 3) agresividad = 1f; // Más agresivo si le quedan pocas vidas
     }

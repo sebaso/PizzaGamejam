@@ -313,8 +313,6 @@ public class PepperoniBase : MonoBehaviour
         Debug.Log($"PLUH... {name} MURIÓ. Vidas: {vidas}");
         SetState(State.Respawning);
 
-        GameManager.Instance.EnemyDefeated(gameObject);
-        
         if (vidas > 0) StartCoroutine(RespawnRoutine());
         else gameObject.SetActive(false);
     }

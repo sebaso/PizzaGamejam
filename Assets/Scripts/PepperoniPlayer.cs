@@ -12,7 +12,7 @@ public class PepperoniPlayer : PepperoniBase
     protected override void Update()
     {
         base.Update();
-        
+
         // Bloquear input si estamos muertos o respawneando
         if (currentState == State.Respawning) return;
         if(GameManager.Instance.currentState != GameManager.GameState.Playing) return;
@@ -23,6 +23,7 @@ public class PepperoniPlayer : PepperoniBase
 
     void InputRaton()
     {
+        if(vidas <= 0) GameManager.Instance.PlayerDied();
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         Plane planoSuelo = new Plane(Vector3.up, new Vector3(0, transform.position.y, 0));

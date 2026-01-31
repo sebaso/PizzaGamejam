@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemyHam;
     public GameObject enemyPineapple;
     public GameObject enemyTomato;
+    public GameObject player;
 
     public List<Transform> spawnPoints;
     public float spawnDelay = 2f;
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(player.activeSelf == false) PlayerDied();
         if (currentState == GameState.WaitingToStart)
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
@@ -93,18 +95,18 @@ public class GameManager : MonoBehaviour
 
         if (currentState == GameState.GameOver)
         {
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
-                RestartGame();
+                ToMenu();
             }
             gameOverUI.SetActive(true);
         }
 
         if (currentState == GameState.Victory)
         {
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
-                RestartGame();
+                ToMenu();
             }
             victoryUI.SetActive(true);
         }
@@ -223,17 +225,16 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
-        if (currentState == GameState.GameOver || currentState == GameState.Victory) return;
+        currentState = GameState.GameOver;
 
         Debug.Log("Player has been defeated!");
         
         if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
         ClearAllEnemies();
         
-        SetState(GameState.GameOver);
     }
     public void ToMenu(){
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("MenuPrincipal");
     }
 
     public void RestartGame()
