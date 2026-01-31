@@ -1,17 +1,18 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
+
 public class PepperoniController : MonoBehaviour
 {
     [Header("Configuración del Smash")]
     public float velocidadGiro = 10f;
     public float fuerzaMinima = 5f;
     public float fuerzaMaxima = 25f;
-    public float tiempoCargaMax = 2f; 
-    
+    public float tiempoCargaMax = 2f;
+
     [Header("Referencias Visuales")]
     public GameObject indicadorCarga;
     public bool esJugador = true;
-    
+
     private Rigidbody rb;
     private float tiempoCargaActual;
     private bool cargando;
@@ -28,17 +29,17 @@ public class PepperoniController : MonoBehaviour
 
     void Update()
     {
-        if (!esJugador) return; 
+        if (!esJugador) return;
 
-        miraAlRaton();
-        gestionarCarga();
+        MiraAlRaton();
+        GestionarCarga();
     }
 
-    void miraAlRaton()
+    void MiraAlRaton()
     {
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
-        
+
         Plane planoSuelo = new Plane(Vector3.up, new Vector3(0, transform.position.y, 0));
         float distancia;
 
@@ -46,14 +47,14 @@ public class PepperoniController : MonoBehaviour
         {
             Vector3 puntoObjetivo = ray.GetPoint(distancia);
             Vector3 direccion = (puntoObjetivo - transform.position).normalized;
-            direccion.y = 0; 
-            
+            direccion.y = 0;
+
             Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, Time.deltaTime * velocidadGiro);
         }
     }
 
-    void gestionarCarga()
+    void GestionarCarga()
     {
         bool espacioPresionado = Keyboard.current.spaceKey.isPressed;
         bool espacioEmpezado = Keyboard.current.spaceKey.wasPressedThisFrame;
@@ -63,7 +64,7 @@ public class PepperoniController : MonoBehaviour
         {
             cargando = true;
             tiempoCargaActual = 0f;
-            rb.mass = 0.5f; 
+            rb.mass = 0.5f;
             if (indicadorCarga) indicadorCarga.SetActive(true);
         }
 
@@ -79,29 +80,20 @@ public class PepperoniController : MonoBehaviour
 
         if (espacioSoltado && cargando)
         {
-            lanzarse();
+            Lanzarse();
         }
     }
 
-    void lanzarse()
+    void Lanzarse()
     {
         cargando = false;
-        rb.mass = 1f; 
+        rb.mass = 1f;
         rend.material.color = colorOriginal;
-        if (indicadorCarga) indicadorCarga.SetActive(false); 
+        if (indicadorCarga) indicadorCarga.SetActive(false);
 
         float porcentajeCarga = Mathf.Clamp01(tiempoCargaActual / tiempoCargaMax);
         float fuerzaFinal = Mathf.Lerp(fuerzaMinima, fuerzaMaxima, porcentajeCarga);
 
         rb.AddForce(transform.forward * fuerzaFinal, ForceMode.Impulse);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.name == "DeathZone")
-        {
-            transform.position = new Vector3(0, 2, 0);
-            rb.linearVelocity = Vector3.zero; 
-        }
     }
 }

@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 125914608}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PivotIndicador
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 241554064}
   - component: {fileID: 241554066}
   - component: {fileID: 241554065}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -811,9 +811,10 @@ GameObject:
   - component: {fileID: 966327162}
   - component: {fileID: 966327166}
   - component: {fileID: 966327161}
+  - component: {fileID: 966327167}
   m_Layer: 0
   m_Name: Jugador
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -960,6 +961,21 @@ MonoBehaviour:
   tiempoCargaMax: 2
   indicadorCarga: {fileID: 269169850}
   esJugador: 1
+--- !u!114 &966327167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966327160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f97ea3a125b22418d77fe4880982fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ulti
+  prefabClon: {fileID: 864717573017397511, guid: 1c3d025108e3be149b4f347308cbe790, type: 3}
+  duracionClon: 10
+  offsetClon: {x: 0, y: 0, z: 3}
 --- !u!1 &1079274959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,7 +1099,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1205325809}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PivotIndicador
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1117,7 +1133,7 @@ GameObject:
   - component: {fileID: 1205514099}
   - component: {fileID: 1205514101}
   - component: {fileID: 1205514100}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,9 +1226,10 @@ GameObject:
   - component: {fileID: 1244929391}
   - component: {fileID: 1244929390}
   - component: {fileID: 1244929389}
-  m_Layer: 0
-  m_Name: NPC
-  m_TagString: Untagged
+  - component: {fileID: 1244929395}
+  m_Layer: 3
+  m_Name: FinalBoss
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1359,6 +1376,34 @@ Transform:
   - {fileID: 1205325809}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1244929395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244929388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de307f7a020286047b28d3d1fb14911d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinalBoss
+  golpesParaMorir: 10
+  moveSpeed: 3
+  rotSpeed: 4
+  orbitFactor: 0.6
+  fuerzaMinima: 5
+  fuerzaMaxima: 25
+  tiempoCargaMax: 2
+  distanciaAtaque: 6
+  distanciaEspecial: 8
+  cooldownAtaque: 2
+  cooldownEspecial: 10
+  fuerzaImpacto: 15
+  fuerzaEspecial: 25
+  rend: {fileID: 1244929392}
+  colorOriginal: {r: 0.45098042, g: 0.08235294, b: 0.058823533, a: 0}
+  colorCargando: {r: 1, g: 0.8431373, b: 0, a: 1}
 --- !u!1 &1479190828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,9 +1418,9 @@ GameObject:
   - component: {fileID: 1479190831}
   - component: {fileID: 1479190830}
   - component: {fileID: 1479190829}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: NPC (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1586,7 +1631,7 @@ GameObject:
   - component: {fileID: 1736875056}
   - component: {fileID: 1736875058}
   - component: {fileID: 1736875057}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1676,7 +1721,7 @@ GameObject:
   - component: {fileID: 1966415507}
   - component: {fileID: 1966415509}
   - component: {fileID: 1966415508}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
