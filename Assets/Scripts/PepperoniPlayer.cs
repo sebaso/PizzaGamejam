@@ -15,6 +15,7 @@ public class PepperoniPlayer : PepperoniBase
         
         // Bloquear input si estamos muertos o respawneando
         if (currentState == State.Respawning) return;
+        if(GameManager.Instance.currentState != GameManager.GameState.Playing) return;
 
         InputRaton();
         InputTeclado();

@@ -37,7 +37,6 @@ public class CountdownUI : MonoBehaviour
         {
             countdownText.alignment = TextAlignmentOptions.Center;
             countdownText.rectTransform.anchoredPosition = originalPosition;
-            countdownText.gameObject.SetActive(false);
         }
     }
 

@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // ==================== SINGLETON ====================
     public static GameManager Instance;
 
-    // ==================== GAME STATE ====================
     public enum GameState
     {
         WaitingToStart,  
@@ -100,7 +98,6 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.WaitingToStart:
-                // Reset everything
                 currentDay = 1;
                 totalEnemiesKilled = 0;
                 score = 0;
@@ -144,8 +141,6 @@ public class GameManager : MonoBehaviour
             bool countdownComplete = false;
             countdownUI.OnCountdownComplete = () => countdownComplete = true;
             countdownUI.StartCountdown();
-
-            // Wait for countdown to finish
             while (!countdownComplete)
             {
                 yield return null;
@@ -153,7 +148,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // No UI, just wait a moment
             yield return new WaitForSeconds(1f);
         }
 
