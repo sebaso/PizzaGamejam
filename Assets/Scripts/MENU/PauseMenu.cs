@@ -50,7 +50,7 @@ public class PauseMenu : MonoBehaviour
     public void VolverAlMenu()
     {
         Time.timeScale = 1f; // Asegurar que el tiempo vuelva a la normalidad
-        SceneManager.LoadScene("MainMenu"); // Cambia "MainMenu" por el nombre de tu escena de menú principal
+        SceneManager.LoadScene("MainMenu"); // PONLO CON EL QUE SEA BUENO
     }
 
     public void Salir()
