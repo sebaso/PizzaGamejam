@@ -132,7 +132,20 @@ public class PepperoniBossAI : PepperoniBase
 
         if (vidas <= 0)
         {
-            Morir(); // llama al sistema base
+            Morir();
+        }
+    }
+
+    public override void Morir()
+    {
+        base.Morir(); // Handles vidas-- and SetState
+        
+        if (vidas <= 0)
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.EnemyDefeated(gameObject);
+            }
         }
     }
 

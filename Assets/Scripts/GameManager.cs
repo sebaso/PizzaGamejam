@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour
     public bool IsGameActive => currentState == GameState.Playing;
 
     public int currentDay = 1;
-    public int maxDays = 3;
+    public int maxDays = 4;
     
-    public int[] enemiesPerDay = { 3, 5, 7 };
+    public int[] enemiesPerDay = { 3, 5, 7, 1};
     
     public int maxConcurrentEnemies = 3;
     
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemyHam;
     public GameObject enemyPineapple;
     public GameObject enemyTomato;
+    public GameObject bossPrefab;
     public GameObject player;
 
     public List<Transform> spawnPoints;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     
     private List<GameObject> activeEnemies = new List<GameObject>();
     private Coroutine spawnCoroutine;
+    private GameObject bossInstance;
 
     public CountdownUI countdownUI;
     public GameObject arena;
@@ -285,11 +287,22 @@ public class GameManager : MonoBehaviour
             return;
         }
         GameObject enemy = Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
+        
+        if (currentDay == maxDays && prefabToSpawn == bossPrefab)
+        {
+            bossInstance = enemy;
+        }
+
         RegisterEnemy(enemy);
     }
 
     GameObject GetRandomEnemyPrefab()
     {
+        if (currentDay == maxDays && bossPrefab != null)
+        {
+            return bossPrefab;
+        }
+
         List<GameObject> availablePrefabs = new List<GameObject>();
         
         if (enemyPrefab != null) availablePrefabs.Add(enemyPrefab);
@@ -319,7 +332,15 @@ public class GameManager : MonoBehaviour
             enemiesDefeatedThisDay++;
             totalEnemiesKilled++;
             score += 100;
-            UpdateEnemyCounterUI();
+
+            if (currentDay == maxDays && enemy == bossInstance)
+            {
+                SetState(GameState.Victory);
+            }
+            else
+            {
+                UpdateEnemyCounterUI();
+            }
         }
     }
 
@@ -333,8 +354,8 @@ public class GameManager : MonoBehaviour
             }
         }
         activeEnemies.Clear();
+        bossInstance = null;
     }
-
     public float GetDayProgress()
     {
         if (enemiesToSpawnThisDay <= 0) return 0f;

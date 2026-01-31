@@ -783,13 +783,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   currentState: 0
   currentDay: 1
-  maxDays: 3
-  enemiesPerDay: 030000000500000007000000
+  maxDays: 4
+  enemiesPerDay: 03000000050000000700000001000000
   maxConcurrentEnemies: 3
   enemyPrefab: {fileID: 3152595896683479028, guid: b72c3a1bf079680be92cca58a32663b6, type: 3}
   enemyHam: {fileID: 3152595896683479028, guid: b72c3a1bf079680be92cca58a32663b6, type: 3}
   enemyPineapple: {fileID: 3152595896683479028, guid: b72c3a1bf079680be92cca58a32663b6, type: 3}
   enemyTomato: {fileID: 3152595896683479028, guid: b72c3a1bf079680be92cca58a32663b6, type: 3}
+  bossPrefab: {fileID: 6679124046401617506, guid: 9a42e8d22e229de5ab823cb3800420f8, type: 3}
   player: {fileID: 966327160}
   spawnPoints:
   - {fileID: 349031835}
@@ -1316,10 +1317,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1638036746}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 274, y: 480}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -112, y: -107}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &886395921
 MonoBehaviour:
@@ -1407,7 +1408,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -46.27536, z: -262.0253, w: -78.43987}
+  m_margin: {x: 110.38794, y: -46.27536, z: -111.03079, w: -78.43987}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

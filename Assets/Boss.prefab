@@ -581,12 +581,18 @@ MonoBehaviour:
   fuerzaMinima: 10
   fuerzaMaxima: 50
   tiempoCargaMax: 0.8
+  estaEnEscenario: 0
+  distanciaDeteccionSuelo: 1.5
+  capaSuelo:
+    serializedVersion: 2
+    m_Bits: 64
   "porcentajeDa\xF1o": 0
   multiplicadorVuelo: 3
   vidas: 1
-  indicadorCarga: {fileID: 0}
-  "textoDa\xF1o": {fileID: 0}
-  rend: {fileID: 0}
+  indicadorCarga: {fileID: 6759712120332301575}
+  "textoDa\xF1o": {fileID: 7335804528694035649}
+  "imageDa\xF1o": {fileID: 0}
+  rend: {fileID: 6827572183950930474}
   currentState: 0
   cooldownAtaque: 0.8
   centroPizza: {fileID: 0}
