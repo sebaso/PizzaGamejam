@@ -52,4 +52,19 @@ public class PepperoniPlayer : PepperoniBase
             LanzarAtaque();
         }
     }
+
+
+    public override void Morir()
+{
+    base.Morir(); 
+
+    if (vidas <= 0)
+    {
+        PauseMenu menu = FindFirstObjectByType<PauseMenu>();
+        if (menu != null)
+        {
+            menu.MostrarGameOver();
+        }
+    }
+}
 }
