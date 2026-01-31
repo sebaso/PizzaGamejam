@@ -52,8 +52,8 @@ public class PepperoniAI : PepperoniBase
                 yield return StartCoroutine(ManiobraMovimiento(dest, 0.2f));
             }
 
-            // CALMA: Esperar entre 1.5 y 2.5 segundos antes de pensar otra vez
-            yield return new WaitForSeconds(Random.Range(1.5f, 2.5f));
+            // CALMA Y ESPERA UN POQUTIIN DE NÁ PA ATACAR
+            yield return new WaitForSeconds(Random.Range(1.0f, 2.5f));
         }
     }
 
@@ -111,9 +111,9 @@ public class PepperoniAI : PepperoniBase
         while (currentState == State.Attacking) yield return null;
     }
 
-    protected override void Morir()
+    public override void Morir()
     {
         base.Morir();
-        if (vidas < 3) agresividad = 1f; // Se enfada si pierde vidas
+        if (vidas < 3) agresividad = 1f; // Más agresivo si le quedan pocas vidas
     }
 }
