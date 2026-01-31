@@ -9,7 +9,7 @@ public class FinalBoss : MonoBehaviour
     [Header("Movimiento")]
     public float moveSpeed = 3f;
     public float rotSpeed = 4f;
-    public float orbitFactor = 0.6f; // cuanto se mueve lateralmente
+    public float orbitFactor = 0.6f; 
 
     [Header("Carga / Smash")]
     public float fuerzaMinima = 5f;
@@ -129,8 +129,8 @@ public class FinalBoss : MonoBehaviour
         if (rend) rend.material.color = colorOriginal;
 
         float fuerza = fuerzaEspecial;
-
-        if (golpesParaMorir <= 4) fuerza *= 1.3f; // fase 2
+        // fase 2
+        if (golpesParaMorir <= 4) fuerza *= 1.3f; 
 
         rb.AddForce(transform.forward * fuerza, ForceMode.Impulse);
 

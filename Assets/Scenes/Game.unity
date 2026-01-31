@@ -1418,6 +1418,7 @@ GameObject:
   - component: {fileID: 1479190831}
   - component: {fileID: 1479190830}
   - component: {fileID: 1479190829}
+  - component: {fileID: 1479190835}
   m_Layer: 3
   m_Name: NPC (1)
   m_TagString: Enemy
@@ -1567,6 +1568,29 @@ Transform:
   - {fileID: 125914608}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1479190835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479190828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff8fc1403d8fac4c8250e3f16cd512c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyNPC
+  alturaMuerte: -0.9
+  tagJugador: Player
+  radioDeteccion: 50
+  distanciaAtaque: 50
+  fuerzaMinima: 6
+  fuerzaMaxima: 14
+  tiempoCargaMin: 0.3
+  tiempoCargaMax: 1.2
+  cooldownAtaque: 1.5
+  fuerzaEmpujeJugador: 12
+  velocidadRotacion: 6
 --- !u!1 &1569189498
 GameObject:
   m_ObjectHideFlags: 0
