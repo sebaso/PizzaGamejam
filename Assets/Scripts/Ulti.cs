@@ -6,6 +6,8 @@ public class Ulti : MonoBehaviour
     [Header("Prefab de Roni")]
     public GameObject roniPrefab;        // Prefab de Roni con RoniAI
     public Vector3 offsetRoni = new Vector3(1.2f, 0f, 0f);
+    public float cooldown = 20f;
+    private float lastUsedTime = 0f;
 
     private GameObject clonRoni;
 
@@ -16,7 +18,14 @@ public class Ulti : MonoBehaviour
         // Pulsar Q para invocar Roni
         if (Keyboard.current.qKey.wasPressedThisFrame)
         {
-            ActivarUlti();
+            if (Time.time >= lastUsedTime + cooldown)
+            {
+                ActivarUlti();
+            }
+            else
+            {
+                Debug.Log($"Ultimate on cooldown. Time remaining: {Mathf.Ceil(lastUsedTime + cooldown - Time.time)}s");
+            }
         }
     }
 
@@ -24,6 +33,8 @@ public class Ulti : MonoBehaviour
     {
         // Evita duplicados
         if (clonRoni != null) return;
+
+        lastUsedTime = Time.time;
 
         // Instanciar Roni
         clonRoni = Instantiate(roniPrefab, transform.position + offsetRoni, transform.rotation);

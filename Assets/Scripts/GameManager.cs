@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,9 +22,9 @@ public class GameManager : MonoBehaviour
     public bool IsGameActive => currentState == GameState.Playing;
 
     public int currentDay = 1;
-    public int maxDays = 3;
+    public int maxDays = 4;
     
-    public int[] enemiesPerDay = { 3, 5, 7 };
+    public int[] enemiesPerDay = { 3, 5, 7, 1};
     
     public int maxConcurrentEnemies = 3;
     
@@ -31,16 +32,16 @@ public class GameManager : MonoBehaviour
     private int enemiesSpawnedThisDay;
     private int enemiesDefeatedThisDay;
 
-    public GameObject enemyPrefab;
-    public GameObject enemyHam;
-    public GameObject enemyPineapple;
-    public GameObject enemyTomato;
+    public GameObject[] enemyPrefabsPerDay;
+    public GameObject bossPrefab;
+    public GameObject player;
 
     public List<Transform> spawnPoints;
     public float spawnDelay = 2f;
     
     private List<GameObject> activeEnemies = new List<GameObject>();
     private Coroutine spawnCoroutine;
+    private GameObject bossInstance;
 
     public CountdownUI countdownUI;
     public GameObject arena;
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour
     public System.Action<int> OnDayComplete;
     public System.Action OnGameOver;
     public System.Action OnVictory;
+
+    public TextMeshProUGUI enemyCounterText;
 
 
     
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(player.activeSelf == false) PlayerDied();
         if (currentState == GameState.WaitingToStart)
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
@@ -93,18 +97,18 @@ public class GameManager : MonoBehaviour
 
         if (currentState == GameState.GameOver)
         {
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
-                RestartGame();
+                ToMenu();
             }
             gameOverUI.SetActive(true);
         }
 
         if (currentState == GameState.Victory)
         {
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
-                RestartGame();
+                ToMenu();
             }
             victoryUI.SetActive(true);
         }
@@ -146,6 +150,7 @@ public class GameManager : MonoBehaviour
                 OnVictory?.Invoke();
                 break;
         }
+        UpdateEnemyCounterUI();
     }
     
     public void StartGame()
@@ -190,6 +195,7 @@ public class GameManager : MonoBehaviour
         OnDayStart?.Invoke();
         if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
         spawnCoroutine = StartCoroutine(SpawnEnemiesRoutine());
+        UpdateEnemyCounterUI();
     }
 
     void CheckDayCompletion()
@@ -223,17 +229,16 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
-        if (currentState == GameState.GameOver || currentState == GameState.Victory) return;
+        currentState = GameState.GameOver;
 
         Debug.Log("Player has been defeated!");
         
         if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
         ClearAllEnemies();
         
-        SetState(GameState.GameOver);
     }
     public void ToMenu(){
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("MenuPrincipal");
     }
 
     public void RestartGame()
@@ -279,23 +284,37 @@ public class GameManager : MonoBehaviour
             return;
         }
         GameObject enemy = Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
+        
+        if (currentDay == maxDays && prefabToSpawn == bossPrefab)
+        {
+            bossInstance = enemy;
+        }
+
         RegisterEnemy(enemy);
     }
 
     GameObject GetRandomEnemyPrefab()
     {
-        List<GameObject> availablePrefabs = new List<GameObject>();
-        
-        if (enemyPrefab != null) availablePrefabs.Add(enemyPrefab);
-        if (enemyHam != null) availablePrefabs.Add(enemyHam);
-        if (enemyPineapple != null) availablePrefabs.Add(enemyPineapple);
-        if (enemyTomato != null) availablePrefabs.Add(enemyTomato);
 
-        if (availablePrefabs.Count == 0) return null;
+        if (currentDay == 3)
+        {
+            int randomIndex = Random.Range(0, 2);
+            return enemyPrefabsPerDay[randomIndex];
+        }
 
-        return availablePrefabs[Random.Range(0, availablePrefabs.Count)];
+        int dayIndex = currentDay - 1;
+        if (enemyPrefabsPerDay != null && dayIndex < enemyPrefabsPerDay.Length && enemyPrefabsPerDay[dayIndex] != null)
+        {
+            return enemyPrefabsPerDay[dayIndex];
+        }
+
+        if (currentDay == maxDays && bossPrefab != null)
+        {
+            return bossPrefab;
+        }
+
+        return null;
     }
-
     public void RegisterEnemy(GameObject enemy)
     {
         if (!activeEnemies.Contains(enemy))
@@ -313,6 +332,15 @@ public class GameManager : MonoBehaviour
             enemiesDefeatedThisDay++;
             totalEnemiesKilled++;
             score += 100;
+
+            if (currentDay == maxDays && enemy == bossInstance)
+            {
+                SetState(GameState.Victory);
+            }
+            else
+            {
+                UpdateEnemyCounterUI();
+            }
         }
     }
 
@@ -326,8 +354,8 @@ public class GameManager : MonoBehaviour
             }
         }
         activeEnemies.Clear();
+        bossInstance = null;
     }
-
     public float GetDayProgress()
     {
         if (enemiesToSpawnThisDay <= 0) return 0f;
@@ -343,5 +371,21 @@ public class GameManager : MonoBehaviour
     public bool IsPlaying()
     {
         return currentState == GameState.Playing;
+    }
+
+    private void UpdateEnemyCounterUI()
+    {
+        if (enemyCounterText != null)
+        {
+            if (currentState == GameState.Playing || currentState == GameState.Countdown || currentState == GameState.DayComplete)
+            {
+                enemyCounterText.gameObject.SetActive(true);
+                enemyCounterText.text = $"Ingredientes que quedan por condenar: {GetEnemiesRemaining()}";
+            }
+            else
+            {
+                enemyCounterText.gameObject.SetActive(false);
+            }
+        }
     }
 }

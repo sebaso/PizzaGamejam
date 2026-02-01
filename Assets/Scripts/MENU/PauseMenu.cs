@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +14,13 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Victoria Menu UI")]
     public GameObject panelVictoria;
+
+    public static PauseMenu instancia;
+
+    void Awake()
+    {
+        instancia = this;
+    }
 
     void Start()
     {
@@ -56,7 +62,7 @@ public class PauseMenu : MonoBehaviour
     public void VolverAlMenu()
     {
         Time.timeScale = 1f; // Asegurar que el tiempo vuelva a la normalidad
-        SceneManager.LoadScene("MainMenu"); // PONLO CON EL QUE SEA BUENO
+        SceneManager.LoadScene("MenuPrincipal"); // PONLO CON EL QUE SEA BUENO
     }
 
     public void Salir()
