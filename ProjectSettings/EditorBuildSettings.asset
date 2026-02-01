@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/IntroEpica.unity
+    guid: 0c136a62e52aa004383164195ffd08e9
+  - enabled: 1
     path: Assets/Scenes/MenuPrincipal.unity
     guid: ec046ccce4adeff4dae3e348a4dbc659
   - enabled: 1
