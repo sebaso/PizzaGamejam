@@ -29,7 +29,7 @@ public class PepperoniBossAI : PepperoniBase
             centroPizza = GameObject.Find("CentroPizza")?.transform;
 
         if (objetivo == null)
-            objetivo = FindObjectOfType<PepperoniPlayer>().transform;
+            objetivo = FindFirstObjectByType<PepperoniPlayer>().transform;
 
         vidas = vidaMaxima; // sincroniza con el sistema base
 
