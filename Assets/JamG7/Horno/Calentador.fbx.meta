@@ -10,15 +10,20 @@ ModelImporter:
       name: Calentador
     second: {fileID: 2100000, guid: 7c852955a366dc94e8dcf24dfc64cc12, type: 2}
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Emiissive
+    second: {fileID: 2100000, guid: e077c479c5b35534c8271a59c5987778, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Calentador spp_Calentador_BaseMap
-    second: {fileID: 2800000, guid: d5ab2b7a2030911479693f88fe6a5a42, type: 3}
+    second: {fileID: 2800000, guid: a00ab9563459d1045af3eca7bf8ba80c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Calentador spp_Calentador_Normal
-    second: {fileID: 2800000, guid: 7d7a1125e620acd42bf470d3e25063e5, type: 3}
+    second: {fileID: 2800000, guid: 80711d9c8c43e584aa4f18011b1d71d9, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

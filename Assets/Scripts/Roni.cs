@@ -7,7 +7,7 @@ public class RoniAI : PepperoniBase
     public float radioBusqueda = 25f;    
     public float agresividad = 0.9f;     
     public float radioGolpe = 2.5f;      
-    public float fuerzaEmpuje = 18f;     
+    public float fuerzaEmpuje = 18f;    
 
     [Header("Duración")]
     public float duracionRoni = 10f;     

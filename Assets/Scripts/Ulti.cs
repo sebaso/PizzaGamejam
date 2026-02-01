@@ -8,6 +8,7 @@ public class Ulti : MonoBehaviour
     public Vector3 offsetRoni = new Vector3(1.2f, 0f, 0f);
     public float cooldown = 20f;
     private float lastUsedTime = 0f;
+    public GameObject fueguito;
 
     private GameObject clonRoni;
 
