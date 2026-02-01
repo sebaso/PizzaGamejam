@@ -31,7 +31,7 @@ public class PepperoniBossAI : PepperoniBase
         if (objetivo == null)
             objetivo = FindFirstObjectByType<PepperoniPlayer>().transform;
 
-        vidas = vidaMaxima; // sincroniza con el sistema base
+        vidas = vidaMaxima; 
 
         StartCoroutine(CerebroIA());
     }
@@ -48,7 +48,7 @@ public class PepperoniBossAI : PepperoniBase
                 continue;
             }
 
-            // Moverse dentro del límite
+            
             float distCentro = Vector3.Distance(transform.position, centroPizza.position);
             if (distCentro > radioLimiteArena)
             {
@@ -138,7 +138,7 @@ public class PepperoniBossAI : PepperoniBase
 
     public override void Morir()
     {
-        base.Morir(); // Handles vidas-- and SetState
+        base.Morir(); 
         
         if (vidas <= 0)
         {

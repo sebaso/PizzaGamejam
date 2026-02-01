@@ -14,7 +14,7 @@ public class MuroRompible : MonoBehaviour
     public Renderer miRenderer;
     public Color colorDañado = Color.red;
 
-    // Detectar colisiones
+    
     void OnTriggerEnter(Collider other)
     {
         PepperoniBase pBase = other.GetComponent<PepperoniBase>();
@@ -22,12 +22,12 @@ public class MuroRompible : MonoBehaviour
         
         if (rbAtacante != null)
         {
-            // rebote
+            
             Vector3 direccionRebote = (other.transform.position - transform.position);
             direccionRebote.y = 0.1f; 
             direccionRebote.Normalize();
 
-            // lanzar
+            
             rbAtacante.linearVelocity = Vector3.zero; 
             rbAtacante.AddForce(direccionRebote * fuerzaRebote, ForceMode.Impulse);
 

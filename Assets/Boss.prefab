@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 4602771752593164200}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -390,8 +390,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.21, y: 1.405, z: 2.11}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.27, y: 1.27, z: 1.27}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4592329857716273716}
   - {fileID: 4249295149470516964}
@@ -478,6 +478,8 @@ MonoBehaviour:
   rend: {fileID: 0}
   currentState: 0
   cooldownAtaque: 0.8
+  sonidoSlash: {fileID: 0}
+  sonidoGolpe: {fileID: 0}
   centroPizza: {fileID: 0}
   objetivo: {fileID: 0}
   radioLimiteArena: 9

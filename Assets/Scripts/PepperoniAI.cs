@@ -23,18 +23,18 @@ public class PepperoniAI : PepperoniBase
 
     IEnumerator CerebroIA()
     {
-        yield return new WaitForSeconds(2f); // Espera inicial mas larga
+        yield return new WaitForSeconds(2f); 
         
         while (vidas > 0)
         {
-            // Solo tomar decisiones si estamos IDLE
+            
             if (currentState != State.Idle)
             {
-                yield return new WaitForSeconds(0.5f); // Chequeo menos agresivo
+                yield return new WaitForSeconds(0.5f); 
                 continue;
             }
 
-            // Distancia al centro para no caerse
+            
             float distCentro = Vector3.Distance(transform.position, centroPizza.position);
             
             if (distCentro > radioLimiteArena)
@@ -52,7 +52,7 @@ public class PepperoniAI : PepperoniBase
                 yield return StartCoroutine(ManiobraMovimiento(dest, 0.2f));
             }
 
-            // CALMA Y ESPERA UN POQUTIIN DE NÁ PA ATACAR
+            
             yield return new WaitForSeconds(Random.Range(1.0f, 2.5f));
         }
     }
@@ -61,7 +61,7 @@ public class PepperoniAI : PepperoniBase
     {
         if (objetivo == null) yield break;
 
-        // Predecir un poco el movimiento
+        
         Vector3 meta = objetivo.position;
         if (objetivo.TryGetComponent<Rigidbody>(out Rigidbody targetRb))
         {
@@ -70,7 +70,7 @@ public class PepperoniAI : PepperoniBase
 
         EmpezarCarga();
 
-        // Cargar un tiempo random
+        
         float tiempo = Random.Range(0.3f, 0.8f);
         float t = 0;
 
@@ -87,7 +87,7 @@ public class PepperoniAI : PepperoniBase
             LanzarAtaque();
         }
 
-        // Esperar a terminar el ataque antes de volver al loop principal
+        
         while (currentState == State.Attacking || currentState == State.Hit)
         {
             yield return null;
@@ -118,6 +118,6 @@ public class PepperoniAI : PepperoniBase
         {
             GameManager.Instance.EnemyDefeated(gameObject);
         }
-        if (vidas < 3 && vidas > 0) agresividad = 1f; // Más agresivo si le quedan pocas vidas
+        if (vidas < 3 && vidas > 0) agresividad = 1f; 
     }
 }

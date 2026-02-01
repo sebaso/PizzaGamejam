@@ -9,7 +9,7 @@ public class VersusManager : MonoBehaviour
     {
         ActualizarSpriteDia();
         
-        // Suscribirse al evento de inicio de día si existe en GameManager
+        
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnDayStart += ActualizarSpriteDia;
@@ -18,7 +18,7 @@ public class VersusManager : MonoBehaviour
 
     void OnDestroy()
     {
-        // Desuscribirse para evitar fugas de memoria
+        
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnDayStart -= ActualizarSpriteDia;
@@ -35,7 +35,7 @@ public class VersusManager : MonoBehaviour
         {
             if (daySprites[i] != null)
             {
-                // El índice es currentDay - 1 porque los días empiezan en 1
+                
                 daySprites[i].SetActive(i == currentDay - 1);
             }
         }

@@ -4,13 +4,13 @@ using UnityEngine;
 public class RoniAI : PepperoniBase
 {
     [Header("Roni Config")]
-    public float radioBusqueda = 25f;    // A qué distancia busca enemigos
-    public float agresividad = 0.9f;     // Probabilidad de atacar si encuentra objetivo
-    public float radioGolpe = 2.5f;      // Empuje de golpe
-    public float fuerzaEmpuje = 18f;     // Fuerza de empuje
+    public float radioBusqueda = 25f;    
+    public float agresividad = 0.9f;     
+    public float radioGolpe = 2.5f;      
+    public float fuerzaEmpuje = 18f;     
 
     [Header("Duración")]
-    public float duracionRoni = 10f;     // Tiempo de vida del clon
+    public float duracionRoni = 10f;     
 
     private PepperoniBase objetivo;
     private bool ocupado = false;
@@ -19,10 +19,10 @@ public class RoniAI : PepperoniBase
     {
         base.Start();
 
-        // Destruirse automáticamente tras duracionRoni
+        
         Destroy(gameObject, duracionRoni);
 
-        // Comenzar IA
+        
         StartCoroutine(CerebroRoni());
     }
 
@@ -64,10 +64,10 @@ public class RoniAI : PepperoniBase
             PepperoniBase posible = col.GetComponentInParent<PepperoniBase>();
             if (posible == null || posible == this) continue;
 
-            // Ignorar jugadores
+            
             if (posible.GetComponent<PepperoniPlayer>() != null) continue;
 
-            // Ignorar otros Roni
+            
             if (posible is RoniAI) continue;
 
             float d = Vector3.Distance(transform.position, posible.transform.position);
@@ -92,7 +92,7 @@ public class RoniAI : PepperoniBase
         Vector3 meta = objetivo.transform.position;
         if (objetivo.TryGetComponent<Rigidbody>(out Rigidbody rbTarget))
         {
-            meta += rbTarget.linearVelocity * 0.5f; // predicción ligera
+            meta += rbTarget.linearVelocity * 0.5f; 
         }
 
         EmpezarCarga();
@@ -115,7 +115,7 @@ public class RoniAI : PepperoniBase
 
         EmpujarEnemigos();
 
-        // Esperar a que termine ataque
+        
         while (currentState == State.Attacking || currentState == State.Hit)
         {
             yield return null;
@@ -159,7 +159,7 @@ public class RoniAI : PepperoniBase
             PepperoniBase enemigo = hit.GetComponentInParent<PepperoniBase>();
             if (enemigo == null || enemigo == this) continue;
 
-            // Ignorar jugadores y otros clones
+            
             if (enemigo is RoniAI) continue;
             if (enemigo.GetComponent<PepperoniPlayer>() != null) continue;
 

@@ -6,6 +6,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 public class PepperoniBase : MonoBehaviour
 {
+    [Header("Audio")]
+    public AudioClip sonidoGolpe;
+    public AudioClip sonidoSlash;
+    protected AudioSource audioSource;
+
     public enum State
     {
         Idle,
@@ -23,7 +28,7 @@ public class PepperoniBase : MonoBehaviour
     [Header("Detección de Suelo")]
     public bool estaEnEscenario;
     public float distanciaDeteccionSuelo = 1.5f;
-    public LayerMask capaSuelo; //pizzasuelo
+    public LayerMask capaSuelo; 
 
     [Header("Sistema de Daño")]
     public float porcentajeDaño = 0f;
@@ -39,11 +44,11 @@ public class PepperoniBase : MonoBehaviour
     protected Rigidbody rb;
     protected Color colorOriginal;
     
-    // ESTADO ACTUAL
+    
     public State currentState = State.Idle;
     protected float stateTimer = 0f; 
 
-    // Variables de carga
+    
     protected float tiempoCargaActual;
 
     [Header("Ajustes de Gameplay")]
@@ -53,6 +58,9 @@ public class PepperoniBase : MonoBehaviour
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
+        
         if (rend == null) rend = GetComponentInChildren<Renderer>();
 
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -111,11 +119,11 @@ public class PepperoniBase : MonoBehaviour
     }
 }
 
-    // --- MAQUINA DE ESTADOS ---
+    
 
     public void SetState(State newState)
     {
-        // Logica de SALIDA del estado anterior
+        
         if (currentState == State.Attacking && newState == State.Idle)
         {
             tiempoUltimoFinalizacionAtaque = Time.time;
@@ -127,7 +135,7 @@ public class PepperoniBase : MonoBehaviour
         switch (currentState)
         {
             case State.Idle:
-                rb.linearDamping = 3f; // Freno fuerte
+                rb.linearDamping = 3f; 
                 rb.angularDamping = 5f; 
                 if (rend) rend.material.color = colorOriginal;
                 if (indicadorCarga) indicadorCarga.SetActive(false);
@@ -166,7 +174,7 @@ public class PepperoniBase : MonoBehaviour
         }
     }
 
-    // --- ACCIONES PRINCIPALES ---
+    
 
     public virtual void EmpezarCarga()
     {
@@ -195,7 +203,7 @@ public class PepperoniBase : MonoBehaviour
 
         SetState(State.Attacking);
 
-        // Impulso hacia adelante
+        
         rb.linearVelocity = Vector3.zero; 
         rb.AddForce(transform.forward * fuerzaFinal, ForceMode.Impulse);
     }
@@ -215,6 +223,12 @@ public class PepperoniBase : MonoBehaviour
     direccion.Normalize();
     
     direccion.y = 0.15f; 
+
+    
+    if (audioSource != null && sonidoGolpe != null)
+    {
+        audioSource.PlayOneShot(sonidoGolpe);
+    }
 
     float factorVuelo = (porcentajeDaño / 10f) * multiplicadorVuelo;
     float fuerzaTotal = fuerzaBase + factorVuelo;
@@ -237,16 +251,16 @@ public class PepperoniBase : MonoBehaviour
         }
     }
 
-    // --- COLISIONES ---
+    
 
     void OnCollisionEnter(Collision collision)
     {
         PepperoniBase otro = collision.gameObject.GetComponent<PepperoniBase>();
         
-        // --- PAREDES ---
+        
         if (otro == null)
         {
-            // Freno en seco si choco atacando
+            
             if (currentState == State.Attacking)
             {
                 rb.linearVelocity = Vector3.zero;
@@ -257,32 +271,36 @@ public class PepperoniBase : MonoBehaviour
 
         if (currentState == State.Respawning || otro.currentState == State.Respawning) return;
 
-        // --- RIVALES ---
+        
         bool yoAtaco = currentState == State.Attacking;
         bool elAtaca = otro.currentState == State.Attacking;
 
         if (yoAtaco && !elAtaca)
         {
-            // LE PEGO PUM PIUM PAPAPAPAPUM
+            
             float velocidad = collision.relativeVelocity.magnitude;
             float fuerza = Mathf.Clamp(velocidad, 10f, 20f);
 
             
             otro.RecibirGolpe(transform.position, fuerza);
+            if(otro.gameObject.CompareTag("Enemy"))
+            {
+                audioSource.PlayOneShot(sonidoGolpe);
+            }
 
-            // Rebote controlado
+            
             rb.linearVelocity = -transform.forward * 5f; 
             SetState(State.Idle);
         }
         else if (yoAtaco && elAtaca)
         {
-            // CHOQUE 
+            
             rb.linearVelocity = -transform.forward * 10f;
             SetState(State.Idle);
         }
     }
 
-    // --- UTILIDADES ---
+    
 
     protected void ActualizarInterfaz()
     {
@@ -328,7 +346,7 @@ public class PepperoniBase : MonoBehaviour
         porcentajeDaño = 0;
         ActualizarInterfaz();
 
-        // Respawn position
+        
         Vector2 rnd = Random.insideUnitCircle * 3f;
         transform.position = new Vector3(rnd.x, 5f, rnd.y);
         

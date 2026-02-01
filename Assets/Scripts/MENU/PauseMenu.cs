@@ -49,20 +49,20 @@ public class PauseMenu : MonoBehaviour
     {
         estaPausado = true;
         panelPausa.SetActive(true);
-        Time.timeScale = 0f; // Congela el juego
+        Time.timeScale = 0f; 
     }
 
     public void Reanudar()
     {
         estaPausado = false;
         panelPausa.SetActive(false);
-        Time.timeScale = 1f; // Reanuda el juego
+        Time.timeScale = 1f; 
     }
 
     public void VolverAlMenu()
     {
-        Time.timeScale = 1f; // Asegurar que el tiempo vuelva a la normalidad
-        SceneManager.LoadScene("MenuPrincipal"); // PONLO CON EL QUE SEA BUENO
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("MenuPrincipal"); 
     }
 
     public void Salir()
@@ -87,7 +87,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void MostrarGameOver()
 {
-    // Activamos el panel y congelamos el juego
+    
     if (panelGameOver != null)
     {
         panelGameOver.SetActive(true);
