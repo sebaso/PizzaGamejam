@@ -7,7 +7,7 @@ public class Ulti : MonoBehaviour
     public GameObject roniPrefab;        // Prefab de Roni con RoniAI
     public Vector3 offsetRoni = new Vector3(1.2f, 0f, 0f);
     public float cooldown = 20f;
-    private float lastUsedTime = 0;
+    private float lastUsedTime = 0f;
 
     private GameObject clonRoni;
 
