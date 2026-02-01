@@ -6,19 +6,28 @@ public class MainMenu : MonoBehaviour
     [Header("Panels")]
     public GameObject panelPrincipal;
     public GameObject panelTutorial;
+    public GameObject panelCreditos; // NUEVA REFERENCIA
 
     void Start()
     {
-        // Mostrar panel principal al inicio
         MostrarPanelPrincipal();
-        
-        // Asegurar que el tiempo está corriendo
         Time.timeScale = 1f;
     }
 
     public void BotonJugar()
     {
-        SceneManager.LoadScene("ScenePepe"); // O EL QUE SEA
+        SceneManager.LoadScene("ScenePepe");
+    }
+
+    public void BotonCreditos()
+    {
+        panelPrincipal.SetActive(false);
+        panelCreditos.SetActive(true);
+    }
+
+    public void BotonVolverDeCreditos()
+    {
+        MostrarPanelPrincipal();
     }
 
     public void BotonTutorial()
@@ -34,12 +43,13 @@ public class MainMenu : MonoBehaviour
 
     public void BotonSalir()
     {
-            Application.Quit();
+        Application.Quit();
     }
 
     void MostrarPanelPrincipal()
     {
         panelPrincipal.SetActive(true);
         panelTutorial.SetActive(false);
+        panelCreditos.SetActive(false); 
     }
 }
