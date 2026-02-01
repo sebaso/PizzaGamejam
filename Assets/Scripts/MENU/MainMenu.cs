@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
     [Header("Panels")]
     public GameObject panelPrincipal;
     public GameObject panelTutorial;
-    public GameObject panelCreditos; // NUEVA REFERENCIA
+    public GameObject panelCreditos; 
 
     void Start()
     {
