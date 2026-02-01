@@ -1065,10 +1065,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: VOLVER
+  m_text: SALIR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 993a7d5cd8db6c34f96c4a6dfa6c8706, type: 2}
-  m_sharedMaterial: {fileID: -7968106801916579746, guid: 993a7d5cd8db6c34f96c4a6dfa6c8706, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
+  m_sharedMaterial: {fileID: 5851222124332183716, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2201,7 +2201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: super ganaste el juego!!!
+  m_text: "FELICIDADES \n\xA1HAS GANADO!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
   m_sharedMaterial: {fileID: 5851222124332183716, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
@@ -2537,7 +2537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1069758447
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3761,7 +3761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1916316995
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3879,8 +3879,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PAUSA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 993a7d5cd8db6c34f96c4a6dfa6c8706, type: 2}
-  m_sharedMaterial: {fileID: -7968106801916579746, guid: 993a7d5cd8db6c34f96c4a6dfa6c8706, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
+  m_sharedMaterial: {fileID: 5851222124332183716, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4147,10 +4147,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reanudar
+  m_text: REANUDAR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 993a7d5cd8db6c34f96c4a6dfa6c8706, type: 2}
-  m_sharedMaterial: {fileID: -7968106801916579746, guid: 993a7d5cd8db6c34f96c4a6dfa6c8706, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
+  m_sharedMaterial: {fileID: 5851222124332183716, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4531,7 +4531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Volver al Menu
+  m_text: VOLVER AL MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
   m_sharedMaterial: {fileID: 5851222124332183716, guid: deacab7e1edac924580b1624c8cdb5c5, type: 2}
@@ -4540,8 +4540,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
