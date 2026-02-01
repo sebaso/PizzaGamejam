@@ -3,10 +3,21 @@ using UnityEngine.InputSystem;
 
 public class PepperoniPlayer : PepperoniBase
 {
+    [Header("Audio")]
+    public AudioClip sonidoSlash;   
+    public AudioClip sonidoGolpe;   
+    AudioSource audioSource;
+    bool atacando;
+
+    
     protected override void Start()
     {
         vidas = 3; // El jugador siempre empieza con 3
         base.Start(); 
+        audioSource = GetComponent<AudioSource>();
+        audioSource.loop = true;       
+        audioSource.spatialBlend = 1f; 
+
     }
 
     protected override void Update()
@@ -51,6 +62,8 @@ public class PepperoniPlayer : PepperoniBase
         if (Keyboard.current.spaceKey.wasReleasedThisFrame && currentState == State.Charging) 
         {
             LanzarAtaque();
+            audioSource.PlayOneShot(sonidoSlash);
+        
         }
     }
 
