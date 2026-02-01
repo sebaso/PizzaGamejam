@@ -8,6 +8,9 @@ public class MainMenu : MonoBehaviour
     public GameObject panelTutorial;
     public GameObject panelCreditos; 
 
+    [Header("Referencias Externas")]
+    public MenuMusicManager musicManager; 
+
     void Start()
     {
         MostrarPanelPrincipal();
@@ -16,6 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public void BotonJugar()
     {
+        if(musicManager != null) musicManager.PararMusica();
         SceneManager.LoadScene("SceneSebas");
     }
 

@@ -153,6 +153,6 @@ public class PepperoniBossAI : PepperoniBase
     {
         fase2Activa = true;
         agresividad = Mathf.Clamp01(agresividad * multiplicadorAgresividadFase2);
-        Debug.Log("🔥 PEPPERONI BOSS EN FASE 2 🔥");
+        Debug.Log("PEPPERONI BOSS EN FASE 2 ");
     }
 }
