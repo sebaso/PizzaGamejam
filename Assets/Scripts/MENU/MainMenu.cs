@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
 
     public void BotonJugar()
     {
-        SceneManager.LoadScene("ScenePepe");
+        SceneManager.LoadScene("SceneSebas");
     }
 
     public void BotonCreditos()
