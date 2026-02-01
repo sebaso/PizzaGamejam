@@ -296,7 +296,7 @@ public class GameManager : MonoBehaviour
     GameObject GetRandomEnemyPrefab()
     {
 
-        if (currentDay == 3 && enemyPrefabsPerDay != null && enemyPrefabsPerDay.Length >= 2)
+        if (currentDay == 3)
         {
             int randomIndex = Random.Range(0, 2);
             return enemyPrefabsPerDay[randomIndex];

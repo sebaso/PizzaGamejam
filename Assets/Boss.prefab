@@ -598,7 +598,7 @@ MonoBehaviour:
   centroPizza: {fileID: 0}
   objetivo: {fileID: 0}
   radioLimiteArena: 9
-  agresividad: 0.85
+  agresividad: 0.909
   vidaMaxima: 6
   multiplicadorAgresividadFase2: 1.4
   prediccionFase2: 0.75
