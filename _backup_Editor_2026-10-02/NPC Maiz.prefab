@@ -384,7 +384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ff4411a7c83014eb07328b5c04fca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PepperoniAI
-  materialEstela: {fileID: 2100000, guid: 7b084e3e0f87d174ca0d696ec1944369, type: 2}
   sonidoGolpe: {fileID: 0}
   sonidoSlash: {fileID: 0}
   velocidadGiro: 10

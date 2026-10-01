@@ -1047,6 +1047,7 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1204,6 +1205,18 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &330585549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b9c02148b47ed42bc16d89b3e3d985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShake
 --- !u!1 &349031834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1910,9 @@ MonoBehaviour:
   gameOverUI: {fileID: 1457484446}
   victoryUI: {fileID: 582738851}
   enemyCounterText: {fileID: 886395921}
+  duracionCamaraLenta: 1
+  escalaCamaraLenta: 0.2
+  temblorKOFinal: 0.5
 --- !u!82 &560378638
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6003,6 +6019,10 @@ PrefabInstance:
       propertyPath: sonidoSlash
       value: 
       objectReference: {fileID: 8300000, guid: 18f23149e71d8a34e8dcfacc61a325f7, type: 3}
+    - target: {fileID: 3369828808268417001, guid: 6f5b012a301eac3759232a888acaa231, type: 3}
+      propertyPath: materialEstela
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b084e3e0f87d174ca0d696ec1944369, type: 2}
     - target: {fileID: 3369828808268417001, guid: 6f5b012a301eac3759232a888acaa231, type: 3}
       propertyPath: sonidoDeslizamiento
       value: 

@@ -20,22 +20,20 @@ public class MuroRompible : MonoBehaviour
         PepperoniBase pBase = other.GetComponent<PepperoniBase>();
         Rigidbody rbAtacante = other.GetComponent<Rigidbody>();
         
-        if (rbAtacante != null && !rbAtacante.isKinematic)
+        if (rbAtacante != null)
         {
-            // Medir ANTES de aplicar el rebote; si no, siempre supera el mínimo
-            float velocidadImpacto = rbAtacante.linearVelocity.magnitude;
-
+            
             Vector3 direccionRebote = (other.transform.position - transform.position);
             direccionRebote.y = 0.1f; 
             direccionRebote.Normalize();
 
             
             rbAtacante.linearVelocity = Vector3.zero; 
-            // VelocityChange: rebota igual pese lo que pese
-            rbAtacante.AddForce(direccionRebote * fuerzaRebote, ForceMode.VelocityChange);
+            rbAtacante.AddForce(direccionRebote * fuerzaRebote, ForceMode.Impulse);
 
             if (Time.time > tiempoUltimoGolpe + 0.4f)
             {
+                float velocidadImpacto = rbAtacante.linearVelocity.magnitude;
                 bool esAtaque = (pBase != null && pBase.currentState == PepperoniBase.State.Attacking);
 
                 if (velocidadImpacto > velocidadMinimaRotura || esAtaque)

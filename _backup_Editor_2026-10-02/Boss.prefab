@@ -490,7 +490,7 @@ MonoBehaviour:
   temblorCargaMax: 4
   frecuenciaTemblorCarga: 22
   sonidoCargaCompleta: {fileID: 0}
-  materialEstela: {fileID: 2100000, guid: 7b084e3e0f87d174ca0d696ec1944369, type: 2}
+  materialEstela: {fileID: 0}
   duracionEstela: 0.25
   "umbralEstelaDa\xF1o": 60
   pitchMinimo: 0.9

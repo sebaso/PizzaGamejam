@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86ff73c0f1e3794cb9fd70d51e879a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoniAI
-  materialEstela: {fileID: 2100000, guid: 7b084e3e0f87d174ca0d696ec1944369, type: 2}
   velocidadGiro: 30
   fuerzaMinima: 10
   fuerzaMaxima: 50

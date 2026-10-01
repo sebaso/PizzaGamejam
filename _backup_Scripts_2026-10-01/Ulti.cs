@@ -17,9 +17,7 @@ public class Ulti : MonoBehaviour
         if (roniPrefab == null) return;
 
         
-        bool teclado = Keyboard.current != null && Keyboard.current.qKey.wasPressedThisFrame;
-        bool mando = Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame;
-        if (teclado || mando)
+        if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             if (Time.time >= lastUsedTime + cooldown)
             {

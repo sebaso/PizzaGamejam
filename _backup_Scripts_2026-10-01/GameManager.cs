@@ -58,12 +58,6 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI enemyCounterText;
 
-    [Header("KO final (game feel)")]
-    public float duracionCamaraLenta = 1f;
-    [Range(0.05f, 1f)] public float escalaCamaraLenta = 0.2f;
-    public float temblorKOFinal = 0.5f;
-    private float finKOFinal;
-
 
     
     void Awake()
@@ -110,8 +104,7 @@ public class GameManager : MonoBehaviour
             gameOverUI.SetActive(true);
         }
 
-        // Se espera a que acabe la cámara lenta del KO final para mostrar la victoria
-        if (currentState == GameState.Victory && Time.unscaledTime >= finKOFinal)
+        if (currentState == GameState.Victory)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
@@ -340,11 +333,7 @@ public class GameManager : MonoBehaviour
             totalEnemiesKilled++;
             score += 100;
 
-            bool esBoss = currentDay == maxDays && enemy == bossInstance;
-            bool ultimoDelDia = enemiesDefeatedThisDay >= enemiesToSpawnThisDay && activeEnemies.Count == 0;
-            if (esBoss || ultimoDelDia) EfectoKOFinal();
-
-            if (esBoss)
+            if (currentDay == maxDays && enemy == bossInstance)
             {
                 SetState(GameState.Victory);
             }
@@ -353,14 +342,6 @@ public class GameManager : MonoBehaviour
                 UpdateEnemyCounterUI();
             }
         }
-    }
-
-    void EfectoKOFinal()
-    {
-        finKOFinal = Time.unscaledTime + duracionCamaraLenta;
-        HitStop.CamaraLenta(duracionCamaraLenta, escalaCamaraLenta);
-        CameraShake.Sacudir(temblorKOFinal, 0.6f);
-        VibracionMando.Vibrar(0.8f, 1f, 0.5f);
     }
 
     void ClearAllEnemies()

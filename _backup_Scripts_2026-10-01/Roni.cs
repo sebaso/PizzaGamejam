@@ -113,6 +113,8 @@ public class RoniAI : PepperoniBase
             LanzarAtaque();
         }
 
+        EmpujarEnemigos();
+
         
         while (currentState == State.Attacking || currentState == State.Hit)
         {
@@ -149,18 +151,6 @@ public class RoniAI : PepperoniBase
         ocupado = false;
     }
 
-    // Roni es aliado del jugador: no lo embiste ni a él ni a otros Roni
-    protected override bool PuedeGolpear(PepperoniBase otro)
-    {
-        return !(otro is RoniAI) && otro.GetComponent<PepperoniPlayer>() == null;
-    }
-
-    // La onda expansiva sale al impactar, no al lanzarse
-    protected override void AlGolpear(PepperoniBase victima)
-    {
-        EmpujarEnemigos();
-    }
-
     void EmpujarEnemigos()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, radioGolpe);
@@ -174,7 +164,7 @@ public class RoniAI : PepperoniBase
             if (enemigo.GetComponent<PepperoniPlayer>() != null) continue;
 
             Rigidbody rbEnemigo = hit.GetComponent<Rigidbody>();
-            if (rbEnemigo != null && !rbEnemigo.isKinematic)
+            if (rbEnemigo != null)
             {
                 Vector3 empuje = (hit.transform.position - transform.position).normalized;
                 empuje.y = 0;

@@ -282,7 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77990d9e3105bde42bcb7f2d945f57f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PepperoniController
-  materialEstela: {fileID: 2100000, guid: 7b084e3e0f87d174ca0d696ec1944369, type: 2}
   velocidadGiro: 10
   fuerzaMinima: 5
   fuerzaMaxima: 35
